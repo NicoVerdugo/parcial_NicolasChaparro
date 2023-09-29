@@ -51,6 +51,8 @@ document.getElementById('name').addEventListener('keypress',(event)=>{
 
          empleados.push(empleado);
 
+         subirDep();
+
          actualizarLista();
      } else {
          alert('Por favor, ingresa al menos el nombre.');
