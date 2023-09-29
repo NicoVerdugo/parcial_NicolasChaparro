@@ -96,7 +96,7 @@ const botonBuscar = document.getElementById('buscar');
 botonBuscar.addEventListener('click', buscarId);
 
 function subirDep() {
-    fetch('departaments.json')
+    fetch('departments.json')
         .then(response => response.json())
         .then(data => {
             const departamentoSelect = document.getElementById('departamento');
