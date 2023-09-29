@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Datos Empleado</title>
+    </head>
+
+    <body>
+        <h1>Formulario</h1>
+        
+        <label for="filtro">Nombres:</label>
+        <input type="text" id="name">
+
+        <label for="filtro">Apellidos:</label>
+        <input type="text" id="apell">
+
+        <label for="filtro">Departamento:</label>
+        <input type="text" id="dep">
+
+        <label for="filtro">Municipio:</label>
+        <input type="text" id="mun">
+
+        <label for="filtro">Fecha Nacimiento:</label>
+        <input type="date" id="fechaN">
+
+        <label for="filtro">Salario:</label>
+        <input type="text" id="salario">
+
+        <button id="enviar">Enviar Datos</button>
+
+        <script src="main.js"></script>
+
+
+        <ul id="listaDatos"></ul>
+
+
+        <label for="buscar">Buscar:</label>
+        <input type="text" id="filtro" placeholder="Escribe el id">
+
+        <button id="busc">Filtrar</button>
+        <table id="tabla">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Edad</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+
+    </body>
+</html>
