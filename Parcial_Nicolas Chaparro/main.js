@@ -16,6 +16,12 @@ document.getElementById('name').addEventListener('keypress',(event)=>{
      }
  })
 
+ document.getElementById('filtro').addEventListener('keypress',(event)=>{
+    if(!/[0-9]/.test(event.key)){
+        event.preventDefault()
+    }
+})
+
  
  const empleados = [];
  let id = 1;
@@ -24,15 +30,23 @@ document.getElementById('name').addEventListener('keypress',(event)=>{
  function guardarDatos() {
      const nombre = document.getElementById('name').value;
      const apellido = document.getElementById('apell').value;
-     const edad = document.getElementById('fechaN').value;
+     const fechaNacim = document.getElementById('fechaN').value;
+     const edad = calcularEdad(fechaNacim);
+     const salario = document.getElementById('salario').value;
+     const departamento = document.getElementById('departamento').value;
+
+
+
 
      
      if (nombre.trim() !== '') {
          const empleado = {
-            id: id++,
+             id: id++,
              nombre: nombre,
              apellido: apellido,
-             edad: edad
+             edad: edad,
+             salario: salario,
+             departamento: departamento
          };
 
          empleados.push(empleado);
@@ -49,11 +63,50 @@ document.getElementById('name').addEventListener('keypress',(event)=>{
 
      empleados.forEach(empleado => {
          const item = document.createElement('li');
-         item.textContent = `Id: ${empleado.id} , Nombre: ${empleado.nombre}  ${empleado.apellido || 'N/A'}, Edad: ${empleado.edad || 'N/A'}`;
+         item.textContent = `Id: ${empleado.id} , Nombre: ${empleado.nombre}  ${empleado.apellido || 'N/A'}, Edad: ${empleado.edad || 'N/A'}, Departamento: ${empleado.departamento || 'N/A'}, Salario: ${empleado.salario}`;
          listaDatos.appendChild(item);
      });
  }
 
- const botonGuardar = document.getElementById('enviar');
+ function calcularEdad(fechaNacim) {
+    const fechaNacD = new Date(fechaNacim);
+    const fechaActual = new Date();
+    const edad = fechaActual.getFullYear() - fechaNacD.getFullYear();
+    return edad;
+}
+
+function buscarId() {
+    const idBuscado = parseInt(document.getElementById('filtro').value);
+    const datoEncontrado = empleados.find(empleado => empleado.id === idBuscado);
+
+
+    if (datoEncontrado) {
+        const resultado = `ID: ${datoEncontrado.id}, Nombre: ${datoEncontrado.nombre}, Apellido: ${datoEncontrado.apellido || 'N/A'}, Edad: ${datoEncontrado.edad}, Salario: ${datoEncontrado.salario}`;
+        window.alert(resultado);
+    } else {
+        window.alert('No se encontraron datos con ese ID.');
+    }
+}
+
+const botonGuardar = document.getElementById('enviar');
  botonGuardar.addEventListener('click', guardarDatos);
 
+
+const botonBuscar = document.getElementById('buscar');
+botonBuscar.addEventListener('click', buscarId);
+
+function subirDep() {
+    fetch('departaments.json')
+        .then(response => response.json())
+        .then(data => {
+            const departamentoSelect = document.getElementById('departamento');
+
+            data.forEach(departamento => {
+                const option = document.createElement('option');
+                option.value = departamento.code;
+                option.textContent = departamento.name;
+                departamentoSelect.appendChild(option);
+            });
+        })
+        .catch(error => console.error('Error:', error));
+}
